@@ -66,7 +66,8 @@ gn_rel(or(GN_Base, rel(que), GV)) --> gn_basico(GN_Base), [que], g_verbal(GV).
 % Verb Phrase (gv)
 g_verbal(gv(V)) --> verbo(V).
 g_verbal(gv(V, GN)) --> verbo(V), g_nominal(GN).
-g_verbal(gv(V, Adv)) --> verbo(V), adverbio(Adv).
+g_verbal(gv(V, GAdv)) --> verbo(V), g_adverbial(GAdv).
+g_adverbial(gadv(Adv)) --> adverbio(Adv).
 g_verbal(gv(V, GP)) --> verbo(V), g_preposicional(GP).
 
 % Adjective Phrase (gadj)
