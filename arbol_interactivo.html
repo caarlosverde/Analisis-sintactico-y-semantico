@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>AST Interactivo</title>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "dark", securityLevel: "loose", flowchart: { curve: "step" } });
+</script>
+<style>
+body { font-family: "Segoe UI", sans-serif; background-color: #0f172a; color: #f8fafc; text-align: center; margin: 0; padding: 40px; }
+h2 { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.5em; margin-bottom: 5px; }
+.mermaid { background: #1e293b; padding: 40px; border-radius: 16px; border: 1px solid #334155; margin: 20px auto; max-width: 95%; overflow-x: auto; }
+#modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; }
+.modal-caja { background:#1e293b; padding:40px; border-radius:15px; border: 1px solid #3b82f6; box-shadow: 0 0 30px rgba(59,130,246,0.4); min-width: 350px; }
+button:hover { transform: scale(1.05); }
+</style></head><body>
+<h2>Árbol Sintáctico Profesional (AST)</h2>
+<p style="color:#94a3b8; font-style:italic;">Haz clic en cualquier palabra final (verde) para ver sus propiedades lógicas.</p>
+<div id="modal">
+  <div class="modal-caja">
+    <h1 id="m-palabra" style="color:#38bdf8; font-size:3em; text-transform:uppercase; margin:0;"></h1>
+    <p id="m-cat" style="color:#e2e8f0; font-size:1.5em; background:#0f172a; padding:15px; border-radius:8px; font-family:monospace;"></p>
+    <button onclick="document.getElementById('modal').style.display='none'" style="margin-top:20px; padding:12px 30px; font-size:1.2em; background:#3b82f6; color:#fff; border:none; border-radius:8px; cursor:pointer;">CERRAR</button>
+  </div></div>
+<div class="mermaid">
+flowchart TD
+    classDef raiz fill:#6d28d9,stroke:#8b5cf6,stroke-width:3px,color:#fff,rx:8,ry:8;
+    classDef grupo fill:#1e40af,stroke:#3b82f6,stroke-width:2px,color:#fff,rx:5,ry:5;
+    classDef hoja fill:#065f46,stroke:#10b981,stroke-width:3px,color:#fff,cursor:pointer;
+    node1["<b>[oc]</b>"]
+    class node1 raiz;
+    node2["<b>[o]</b>"]
+    class node2 grupo;
+    node3["<b>[or]</b>"]
+    class node3 grupo;
+    node4["<b>[gn]</b>"]
+    class node4 grupo;
+    node5(["<b>[det]</b><br><i>el</i>"])
+    class node5 hoja;
+    node4 ==> node5
+    node6(["<b>[n]</b><br><i>usuario</i>"])
+    class node6 hoja;
+    node4 ==> node6
+    node7["<b>[gadj]</b>"]
+    class node7 grupo;
+    node8(["<b>[adj]</b><br><i>constante</i>"])
+    class node8 hoja;
+    node7 ==> node8
+    node4 ==> node7
+    node3 ==> node4
+    node9(["<b>[rel]</b><br><i>que</i>"])
+    class node9 hoja;
+    node3 ==> node9
+    node10["<b>[gv]</b>"]
+    class node10 grupo;
+    node11(["<b>[v]</b><br><i>escribe</i>"])
+    class node11 hoja;
+    node10 ==> node11
+    node12["<b>[gadv]</b>"]
+    class node12 grupo;
+    node13(["<b>[adv]</b><br><i>bien</i>"])
+    class node13 hoja;
+    node12 ==> node13
+    node10 ==> node12
+    node3 ==> node10
+    node2 ==> node3
+    node14["<b>[gv]</b>"]
+    class node14 grupo;
+    node15(["<b>[v]</b><br><i>analiza</i>"])
+    class node15 hoja;
+    node14 ==> node15
+    node16["<b>[or]</b>"]
+    class node16 grupo;
+    node17["<b>[gn]</b>"]
+    class node17 grupo;
+    node18(["<b>[det]</b><br><i>el</i>"])
+    class node18 hoja;
+    node17 ==> node18
+    node19(["<b>[n]</b><br><i>mensaje</i>"])
+    class node19 hoja;
+    node17 ==> node19
+    node16 ==> node17
+    node20(["<b>[rel]</b><br><i>que</i>"])
+    class node20 hoja;
+    node16 ==> node20
+    node21["<b>[gv]</b>"]
+    class node21 grupo;
+    node22(["<b>[v]</b><br><i>oculta</i>"])
+    class node22 hoja;
+    node21 ==> node22
+    node23["<b>[gn]</b>"]
+    class node23 grupo;
+    node24(["<b>[det]</b><br><i>la</i>"])
+    class node24 hoja;
+    node23 ==> node24
+    node25(["<b>[n]</b><br><i>informacion</i>"])
+    class node25 hoja;
+    node23 ==> node25
+    node21 ==> node23
+    node16 ==> node21
+    node14 ==> node16
+    node2 ==> node14
+    node1 ==> node2
+    node26(["<b>[conj]</b><br><i>y</i>"])
+    class node26 hoja;
+    node1 ==> node26
+    node27["<b>[o]</b>"]
+    class node27 grupo;
+    node28["<b>[gn]</b>"]
+    class node28 grupo;
+    node29(["<b>[det]</b><br><i>el</i>"])
+    class node29 hoja;
+    node28 ==> node29
+    node30(["<b>[n]</b><br><i>diccionario</i>"])
+    class node30 hoja;
+    node28 ==> node30
+    node27 ==> node28
+    node31["<b>[gv]</b>"]
+    class node31 grupo;
+    node32(["<b>[v]</b><br><i>ataca</i>"])
+    class node32 hoja;
+    node31 ==> node32
+    node33["<b>[or]</b>"]
+    class node33 grupo;
+    node34["<b>[gn]</b>"]
+    class node34 grupo;
+    node35(["<b>[det]</b><br><i>el</i>"])
+    class node35 hoja;
+    node34 ==> node35
+    node36(["<b>[n]</b><br><i>sistema</i>"])
+    class node36 hoja;
+    node34 ==> node36
+    node33 ==> node34
+    node37(["<b>[rel]</b><br><i>que</i>"])
+    class node37 hoja;
+    node33 ==> node37
+    node38["<b>[gv]</b>"]
+    class node38 grupo;
+    node39(["<b>[v]</b><br><i>protege</i>"])
+    class node39 hoja;
+    node38 ==> node39
+    node40["<b>[gn]</b>"]
+    class node40 grupo;
+    node41(["<b>[det]</b><br><i>el</i>"])
+    class node41 hoja;
+    node40 ==> node41
+    node42(["<b>[n]</b><br><i>secreto</i>"])
+    class node42 hoja;
+    node40 ==> node42
+    node38 ==> node40
+    node33 ==> node38
+    node31 ==> node33
+    node27 ==> node31
+    node1 ==> node27
+    %% Forzar mismo nivel
+    subgraph Base [ ]
+    style Base fill:none,stroke:none;
+    node5
+    node6
+    node8
+    node9
+    node11
+    node13
+    node15
+    node18
+    node19
+    node20
+    node22
+    node24
+    node25
+    node26
+    node29
+    node30
+    node32
+    node35
+    node36
+    node37
+    node39
+    node41
+    node42
+    end
+    %% Eventos Click
+    click node5 mostrarInfo "Ver propiedades"
+    click node6 mostrarInfo "Ver propiedades"
+    click node8 mostrarInfo "Ver propiedades"
+    click node9 mostrarInfo "Ver propiedades"
+    click node11 mostrarInfo "Ver propiedades"
+    click node13 mostrarInfo "Ver propiedades"
+    click node15 mostrarInfo "Ver propiedades"
+    click node18 mostrarInfo "Ver propiedades"
+    click node19 mostrarInfo "Ver propiedades"
+    click node20 mostrarInfo "Ver propiedades"
+    click node22 mostrarInfo "Ver propiedades"
+    click node24 mostrarInfo "Ver propiedades"
+    click node25 mostrarInfo "Ver propiedades"
+    click node26 mostrarInfo "Ver propiedades"
+    click node29 mostrarInfo "Ver propiedades"
+    click node30 mostrarInfo "Ver propiedades"
+    click node32 mostrarInfo "Ver propiedades"
+    click node35 mostrarInfo "Ver propiedades"
+    click node36 mostrarInfo "Ver propiedades"
+    click node37 mostrarInfo "Ver propiedades"
+    click node39 mostrarInfo "Ver propiedades"
+    click node41 mostrarInfo "Ver propiedades"
+    click node42 mostrarInfo "Ver propiedades"
+</div>
+<script>
+  const diccNodos = {
+    "node5": { cat: "det", palabra: "el" },
+    "node6": { cat: "n", palabra: "usuario" },
+    "node8": { cat: "adj", palabra: "constante" },
+    "node9": { cat: "rel", palabra: "que" },
+    "node11": { cat: "v", palabra: "escribe" },
+    "node13": { cat: "adv", palabra: "bien" },
+    "node15": { cat: "v", palabra: "analiza" },
+    "node18": { cat: "det", palabra: "el" },
+    "node19": { cat: "n", palabra: "mensaje" },
+    "node20": { cat: "rel", palabra: "que" },
+    "node22": { cat: "v", palabra: "oculta" },
+    "node24": { cat: "det", palabra: "la" },
+    "node25": { cat: "n", palabra: "informacion" },
+    "node26": { cat: "conj", palabra: "y" },
+    "node29": { cat: "det", palabra: "el" },
+    "node30": { cat: "n", palabra: "diccionario" },
+    "node32": { cat: "v", palabra: "ataca" },
+    "node35": { cat: "det", palabra: "el" },
+    "node36": { cat: "n", palabra: "sistema" },
+    "node37": { cat: "rel", palabra: "que" },
+    "node39": { cat: "v", palabra: "protege" },
+    "node41": { cat: "det", palabra: "el" },
+    "node42": { cat: "n", palabra: "secreto" },
+  };
+  window.mostrarInfo = function(idNodo) {
+    let datos = diccNodos[idNodo];
+    if(datos) {
+      document.getElementById("m-palabra").innerText = datos.palabra;
+      document.getElementById("m-cat").innerText = "Categoría: [" + datos.cat + "]";
+      document.getElementById("modal").style.display = "flex";
+    }
+  };
+</script>
+</body></html>
