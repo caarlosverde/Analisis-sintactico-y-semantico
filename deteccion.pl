@@ -18,12 +18,14 @@ es_ambigua(Palabra) :-
     write('  [!] AMBIGUEDAD LEXICA: La palabra "'), write(Palabra), 
     write('" puede referirse a ['), write(T1), write('] o ['), write(T2), write('].'), nl.
 
+% --- Extraccion recursiva de palabras (Corregida) ---
+extraer_palabra(n(Palabra), Palabra).
+extraer_palabra(v(Palabra), Palabra).
 extraer_palabra(Arbol, Palabra) :-
-    term_variables(Arbol, []), % Asegura que el arbol esta instanciado
-    Arbol =.. [_, Arg1 | _],
-    (Arg1 = n(Palabra) ; Arg1 = v(Palabra) ; extraer_palabra(Arg1, Palabra)).
-extraer_palabra(Arbol, Palabra) :-
-    Arbol =.. [_, _, Arg2 | _], extraer_palabra(Arg2, Palabra).
+    compound(Arbol),          
+    Arbol =.. [_ | Hijos],    
+    member(Hijo, Hijos),      
+    extraer_palabra(Hijo, Palabra).
 
 % --- Detección de Metáfora (Usando el Árbol) ---
 detectar_metafora_arbol(o(GN_Suj, GV), true) :-
@@ -32,6 +34,15 @@ detectar_metafora_arbol(o(GN_Suj, GV), true) :-
     choque_semantico(TipoN, TipoV),
     write('  [*] METAFORA/INCOHERENCIA: "'), write(Nombre), write('" no puede realizar la accion de "'), write(Verbo), write('".'), nl,
     explicar_metafora(Nombre, Verbo, TipoN, TipoV).
+
+% 2. Para oraciones subordinadas de relativo (LA NUEVA)
+detectar_metafora_arbol(o(or(GN_Suj, _, GV_Rel), _), true) :-
+    obtener_nucleo(GN_Suj, Nombre), tipo(Nombre, TipoN),
+    obtener_nucleo_v(GV_Rel, Verbo), tipo(Verbo, TipoV),
+    choque_semantico(TipoN, TipoV),
+    write('  [*] METAFORA/INCOHERENCIA (Subordinada): "'), write(Nombre), write('" no puede realizar la accion de "'), write(Verbo), write('".'), nl,
+    explicar_metafora(Nombre, Verbo, TipoN, TipoV).
+
 detectar_metafora_arbol(oc(O1, _, O2), true) :-
     (detectar_metafora_arbol(O1, true) ; detectar_metafora_arbol(O2, true)).
 

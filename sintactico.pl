@@ -56,6 +56,7 @@ determinante(det(los)) --> [los].
 determinante(det(las)) --> [las].
 determinante(det(un)) --> [un].
 determinante(det(una)) --> [una].
+determinante(det(ocho)) --> [ocho].
 
 % Nombres
 nombre(n(libro)) --> [libro].
@@ -183,7 +184,6 @@ verbo(v(rompe)) --> [rompe].
 
 % Adjetivos, Adverbios y otros
 adjetivo(adj(constante)) --> [constante].
-adjetivo(adj(ocho)) --> [ocho].
 
 adverbio(adv(bien)) --> [bien].
 
